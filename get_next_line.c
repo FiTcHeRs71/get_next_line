@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 16:21:22 by fducrot           #+#    #+#             */
+/*   Updated: 2025/10/14 16:27:09 by fducrot          ###   ########.ch       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*ft_update_static(char *all_files)
@@ -46,19 +58,18 @@ char	*ft_read_doc(int fd, char *buffer, char *all_files)
 	char	*temp;
 
 	reader = 1;
-
 	if (!ft_strchr(all_files, '\n'))
 	{
 		while (reader > 0)
 		{
-			reader = read(fd, buffer, 42);
+			reader = read(fd, buffer, BUFFER_SIZE);
 			buffer[reader] = 0;
-			if (ft_strchr(buffer, '\n'))
-			{
-				return (buffer);
-			}
 			temp = all_files;
 			all_files = ft_strjoin(temp, buffer);
+			if (ft_strchr(buffer, '\n'))
+			{
+				return (all_files);
+			}
 		}
 	}
 	return (all_files);
@@ -67,15 +78,19 @@ char	*ft_read_doc(int fd, char *buffer, char *all_files)
 char	*get_next_line(int fd)
 {
 	char		*buffer;
-	static char	*all_files;
+	static char	all_files[BUFFER_SIZE + 1];
 	char		*line;
 
-	buffer = ft_calloc(42 , sizeof(char));
-
-	all_files = ft_read_doc(fd, buffer, all_files);
-
+	if (fd < 0 || BUFFER_SIZE < 1)
+	{
+		return (NULL);
+	}
+	buffer = ft_calloc(BUFFER_SIZE, sizeof(char));
+	 = ft_read_doc(fd, buffer, all_files);
+	free(buffer);
 	line = ft_define_line(all_files);
 	all_files = ft_update_static(all_files);
+	
 	return (line);
 }
 
@@ -104,6 +119,10 @@ int	main(void)
 	printf("%s", line);
 	line = get_next_line(fd); // rien
 	printf("%s", line);
+	get_next_line(fd);
+	get_next_line(fd);
+	get_next_line(fd);
+	get_next_line(fd);
 	free(line);
 	close(fd);
 	return (0);

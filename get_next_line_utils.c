@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 15:30:11 by fducrot           #+#    #+#             */
+/*   Updated: 2025/10/14 15:30:26 by fducrot          ###   ########.ch       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *str)
@@ -11,6 +23,7 @@ size_t	ft_strlen(const char *str)
 	}
 	return (i);
 }
+
 void	*ft_memset(void *s, int c, size_t len)
 {
 	unsigned char	*tmp;
@@ -43,7 +56,6 @@ void	*ft_calloc(size_t count, size_t size)
 	ft_memset(temp, 0, count * size);
 	return (temp);
 }
-
 
 char	*ft_strdup(const char *s1)
 {
@@ -119,9 +131,9 @@ char	*ft_strchr(const char *s, int c)
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char *str;
-	size_t real_len;
-	size_t i;
+	char	*str;
+	size_t	real_len;
+	size_t	i;
 
 	i = 0;
 	if (!s)
