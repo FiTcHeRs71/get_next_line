@@ -6,7 +6,7 @@
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:44:42 by fducrot           #+#    #+#             */
-/*   Updated: 2025/10/14 17:08:33 by fducrot          ###   ########.ch       */
+/*   Updated: 2025/10/14 17:17:27 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,25 @@ char	*ft_read_doc(int fd, char *buffer, char *all_files)
 	char	*temp;
 
 	reader = 1;
-	if (!ft_strchr(all_files, '\n'))
+	while (reader > 0 && (!ft_strchr(all_files, '\n')))
 	{
-		while (reader > 0)
+		reader = read(fd, buffer, BUFFER_SIZE);
+		if (reader == -1)
 		{
-			if (reader == -1)
-			{
-				free(all_files);
-				return (NULL);
-			}
-			reader = read(fd, buffer, BUFFER_SIZE);
-			buffer[reader] = 0;
-			temp = all_files;
-			all_files = ft_strjoin(temp, buffer); //
-			free(temp);
-			if (ft_strchr(buffer, '\n'))
-			{
-				return (all_files);
-			}
+			free(all_files);
+			return (NULL);
+		}
+		buffer[reader] = '\0';
+		temp = all_files;
+		all_files = ft_strjoin(temp, buffer); //
+		free(temp);
+		if (!all_files)
+		{
+			return (NULL);
+		}
+		if (ft_strchr(buffer, '\n'))
+		{
+			return (all_files);
 		}
 	}
 	return (all_files);
@@ -98,7 +99,7 @@ char	*get_next_line(int fd)
 	static char	*all_files;
 	char		*line;
 
-	buffer = ft_calloc(BUFFER_SIZE, sizeof(char));
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (fd < 0 || BUFFER_SIZE < 0 || read(fd, 0, 0) < 0)
 	{
 		free(buffer);
@@ -127,23 +128,29 @@ int	main(void)
 	}
 	line = get_next_line(fd); // kc
 	printf("%s", line);
+	free(line);
 	line = get_next_line(fd); // \n
 	printf("%s", line);
+	free(line);
 	line = get_next_line(fd); // fitch
 	printf("%s", line);
+	free(line);
 	line = get_next_line(fd); // \n
 	printf("%s", line);
+	free(line);
 	line = get_next_line(fd); // philo
 	printf("%s", line);
+	free(line);
 	line = get_next_line(fd); // \n
 	printf("%s", line);
+	free(line);
 	line = get_next_line(fd); // rien
 	printf("%s", line);
-	get_next_line(fd);
-	get_next_line(fd);
-	get_next_line(fd);
-	get_next_line(fd);
 	free(line);
+	get_next_line(fd);
+	get_next_line(fd);
+	get_next_line(fd);
+	get_next_line(fd);
 	close(fd);
 	return (0);
 }
