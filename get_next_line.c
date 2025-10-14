@@ -6,7 +6,7 @@
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:44:42 by fducrot           #+#    #+#             */
-/*   Updated: 2025/10/14 17:17:27 by fducrot          ###   ########.ch       */
+/*   Updated: 2025/10/14 17:31:51 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,6 @@ char	*ft_read_doc(int fd, char *buffer, char *all_files)
 		{
 			return (NULL);
 		}
-		if (ft_strchr(buffer, '\n'))
-		{
-			return (all_files);
-		}
 	}
 	return (all_files);
 }
@@ -99,23 +95,30 @@ char	*get_next_line(int fd)
 	static char	*all_files;
 	char		*line;
 
+	if (fd < 0 || BUFFER_SIZE < 0)
+	{
+		return (NULL);
+	}
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (fd < 0 || BUFFER_SIZE < 0 || read(fd, 0, 0) < 0)
+	if (read(fd, 0, 0) < 0)
 	{
 		free(buffer);
 		free(all_files);
-		buffer = NULL;
 		all_files = NULL;
 		return (NULL);
 	}
 	all_files = ft_read_doc(fd, buffer, all_files);
 	free(buffer);
+	if (!all_files)
+	{
+		return (NULL);
+	}
 	line = ft_define_line(all_files);
 	all_files = ft_update_static(all_files);
 	return (line);
 }
 
-int	main(void)
+/*int	main(void)
 {
 	int		fd;
 	char	*line;
@@ -153,7 +156,7 @@ int	main(void)
 	get_next_line(fd);
 	close(fd);
 	return (0);
-}
+}*/
 
 /*
 
