@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 10:15:16 by fducrot           #+#    #+#             */
-/*   Updated: 2025/10/15 10:17:35 by fducrot          ###   ########.ch       */
+/*   Created: 2025/10/15 16:53:39 by fducrot           #+#    #+#             */
+/*   Updated: 2025/10/15 16:54:58 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,18 @@ char	*ft_update_static(char *all_files)
 	size_t	i;
 	char	*new_static;
 
+	if (!all_files)
+	{
+		return (NULL);
+	}
 	i = 0;
 	while (all_files[i] && all_files[i] != '\n')
 	{
 		i++;
 	}
-	if (!all_files[i])
-	{
-		free(all_files);
-		return (NULL);
-	}
 	new_static = ft_substr(all_files, i + 1, ft_strlen(all_files) - i);
 	free(all_files);
-	if (!new_static)
-	{
-		return (NULL);
-	}
-	if (!new_static[0])
+	if (!new_static || !*new_static)
 	{
 		free(new_static);
 		return (NULL);
@@ -56,6 +51,10 @@ char	*ft_define_line(char *all_files)
 		i++;
 	}
 	line = ft_substr(all_files, 0, i);
+	if (!line)
+	{
+		return (NULL);
+	}
 	if (!line[0])
 	{
 		free(line);
@@ -79,14 +78,15 @@ char	*ft_read_doc(int fd, char *buffer, char *all_files)
 			return (NULL);
 		}
 		buffer[reader] = '\0';
+		if (!all_files)
+			all_files = ft_strdup("");
 		temp = all_files;
 		all_files = ft_strjoin(temp, buffer);
+		if (!all_files)
+			return (NULL);
 		free(temp);
 		if (!all_files)
-		{
-			free (all_files);
 			return (NULL);
-		}
 	}
 	return (all_files);
 }
@@ -97,22 +97,22 @@ char	*get_next_line(int fd)
 	static char	*all_files;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || (read(fd, 0, 0) < 0))
 	{
-		return (NULL);
-	}
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (read(fd, 0, 0) < 0)
-	{
-		free(buffer);
 		free(all_files);
 		all_files = NULL;
 		return (NULL);
 	}
+	buffer = malloc(BUFFER_SIZE + 1 * sizeof(char));
+	if (!buffer)
+		return (NULL);
 	all_files = ft_read_doc(fd, buffer, all_files);
 	free(buffer);
 	if (!all_files || all_files[0] == '\0')
 	{
+		if (all_files)
+			free(all_files);
+		all_files = NULL;
 		return (NULL);
 	}
 	line = ft_define_line(all_files);
