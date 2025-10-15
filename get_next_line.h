@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/14 16:17:37 by fducrot           #+#    #+#             */
-/*   Updated: 2025/10/14 16:17:53 by fducrot          ###   ########.ch       */
+/*   Created: 2025/10/15 10:11:25 by fducrot           #+#    #+#             */
+/*   Updated: 2025/10/15 10:11:30 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_update_static(char *all_files);
 char	*ft_define_line(char *all_files);
 char	*ft_read_doc(int fd, char *buffer, char *all_files);
 
-	char *ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);

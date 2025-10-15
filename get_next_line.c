@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/14 16:44:42 by fducrot           #+#    #+#             */
-/*   Updated: 2025/10/14 17:31:51 by fducrot          ###   ########.ch       */
+/*   Created: 2025/10/15 10:15:16 by fducrot           #+#    #+#             */
+/*   Updated: 2025/10/15 10:17:35 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ char	*ft_define_line(char *all_files)
 	{
 		i++;
 	}
-	line = ft_substr(all_files, 0, i); //
-	if (!line)
+	line = ft_substr(all_files, 0, i);
+	if (!line[0])
 	{
+		free(line);
 		return (NULL);
 	}
 	return (line);
@@ -79,10 +80,11 @@ char	*ft_read_doc(int fd, char *buffer, char *all_files)
 		}
 		buffer[reader] = '\0';
 		temp = all_files;
-		all_files = ft_strjoin(temp, buffer); //
+		all_files = ft_strjoin(temp, buffer);
 		free(temp);
 		if (!all_files)
 		{
+			free (all_files);
 			return (NULL);
 		}
 	}
@@ -109,7 +111,7 @@ char	*get_next_line(int fd)
 	}
 	all_files = ft_read_doc(fd, buffer, all_files);
 	free(buffer);
-	if (!all_files)
+	if (!all_files || all_files[0] == '\0')
 	{
 		return (NULL);
 	}
@@ -150,10 +152,6 @@ char	*get_next_line(int fd)
 	line = get_next_line(fd); // rien
 	printf("%s", line);
 	free(line);
-	get_next_line(fd);
-	get_next_line(fd);
-	get_next_line(fd);
-	get_next_line(fd);
 	close(fd);
 	return (0);
 }*/

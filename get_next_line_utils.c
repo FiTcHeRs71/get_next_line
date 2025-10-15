@@ -6,7 +6,7 @@
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:43:14 by fducrot           #+#    #+#             */
-/*   Updated: 2025/10/14 16:43:14 by fducrot          ###   ########.ch       */
+/*   Updated: 2025/10/15 10:10:00 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*ft_calloc(size_t count, size_t size)
 	return (temp);
 }
 
-char	*ft_strdup(const char *s1) // pas use ?
+char	*ft_strdup(const char *s1)
 {
 	size_t	len;
 	size_t	i;
