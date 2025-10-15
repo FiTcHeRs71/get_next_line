@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*    get_next_line_bonus.c                             :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 17:28:58 by fducrot           #+#    #+#             */
-/*   Updated: 2025/10/15 17:29:17 by fducrot          ###   ########.ch       */
+/*   Created: 2025/10/15 18:00:56 by fducrot           #+#    #+#             */
+/*   Updated: 2025/10/15 18:14:01 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,23 +99,23 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || (read(fd, 0, 0) < 0))
 	{
-		free(r_read[MAX_FD]);
-		r_read[MAX_FD] = NULL;
+		free(r_read[fd]);
+		r_read[fd] = NULL;
 		return (NULL);
 	}
 	buffer = malloc(BUFFER_SIZE + 1 * sizeof(char));
 	if (!buffer)
 		return (NULL);
-	r_read[MAX_FD] = ft_read_doc(fd, buffer, r_read[MAX_FD]);
+	r_read[fd] = ft_read_doc(fd, buffer, r_read[fd]);
 	free(buffer);
-	if (!r_read[MAX_FD] || r_read[MAX_FD][0] == '\0')
+	if (!r_read[fd] || r_read[fd][0] == '\0')
 	{
-		if (r_read[MAX_FD])
-			free(r_read[MAX_FD]);
-		r_read[MAX_FD] = NULL;
+		if (r_read[fd])
+			free(r_read[fd]);
+		r_read[fd] = NULL;
 		return (NULL);
 	}
-	line = ft_define_line(r_read[MAX_FD]);
-	r_read[MAX_FD] = ft_update_static(r_read[MAX_FD]);
+	line = ft_define_line(r_read[fd]);
+	r_read[fd] = ft_update_static(r_read[fd]);
 	return (line);
 }

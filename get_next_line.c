@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 17:24:23 by fducrot           #+#    #+#             */
-/*   Updated: 2025/10/15 17:25:04 by fducrot          ###   ########.ch       */
+/*   Created: 2025/10/15 17:52:35 by fducrot           #+#    #+#             */
+/*   Updated: 2025/10/15 17:53:49 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,52 +119,3 @@ char	*get_next_line(int fd)
 	r_read = ft_update_static(r_read);
 	return (line);
 }
-
-/*int	main(void)
-{
-	int		fd;
-	char	*line;
-
-	fd = open("test.txt", O_RDONLY);
-	if (fd == -1)
-	{
-		printf("Erreur: impossible d'ouvrir le fichier\n");
-		return (1);
-	}
-	line = get_next_line(fd); // kc
-	printf("%s", line);
-	free(line);
-	line = get_next_line(fd); // \n
-	printf("%s", line);
-	free(line);
-	line = get_next_line(fd); // fitch
-	printf("%s", line);
-	free(line);
-	line = get_next_line(fd); // \n
-	printf("%s", line);
-	free(line);
-	line = get_next_line(fd); // philo
-	printf("%s", line);
-	free(line);
-	line = get_next_line(fd); // \n
-	printf("%s", line);
-	free(line);
-	line = get_next_line(fd); // rien
-	printf("%s", line);
-	free(line);
-	close(fd);
-	return (0);
-}*/
-
-/*
-
-FT_STRCHR
-
-FT_STRDUP
-
-FT_STRLEN
-
-FT_SUBSTR
-
-FT_STRJOIN
-*/

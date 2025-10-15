@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 15/10/2025 17:01:54 by fducrot           #+#    #+#             */
-/*   Updated: 15/10/2025 17:29:29 by fducrot          ###   ########.ch       */
+/*   Created: 2025/10/15 17:55:48 by fducrot           #+#    #+#             */
+/*   Updated: 2025/10/15 17:55:48 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # endif
 
 # ifndef MAX_FD
-#  define MAX_FD 1024
+#  define MAX_FD 1000
 # endif
 
 # include <fcntl.h>
