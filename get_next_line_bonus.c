@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 18:00:56 by fducrot           #+#    #+#             */
-/*   Updated: 2025/10/15 18:14:01 by fducrot          ###   ########.ch       */
+/*   Created: 2025/10/16 10:40:59 by fducrot           #+#    #+#             */
+/*   Updated: 2025/10/16 10:41:24 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ char	*ft_read_doc(int fd, char *buffer, char *all_files)
 		if (!all_files)
 			return (NULL);
 		free(temp);
-		if (!all_files)
-			return (NULL);
 	}
 	return (all_files);
 }
@@ -97,7 +95,7 @@ char	*get_next_line(int fd)
 	static char	*r_read[MAX_FD];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || (read(fd, 0, 0) < 0))
+	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		free(r_read[fd]);
 		r_read[fd] = NULL;
